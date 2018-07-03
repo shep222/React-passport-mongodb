@@ -3,7 +3,8 @@ const router = express.Router();
 const gravatar = require('gravatar');
 const brcypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const keys = require('../../config/keys')
+const keys = require('../../config/keys');
+const passport = require('passport');
 
 
 // Load User Model
@@ -91,7 +92,7 @@ router.post('/login', (req, res) => {
             jwt.sign(
               payload,
               keys.secretorKey, {
-                expiresIn: 3600
+                expiresIn: 3600 //in seconds
               },
               (err, token) => {
                 res.json({
@@ -106,12 +107,18 @@ router.post('/login', (req, res) => {
           }
         })
     })
-
-
 })
 
-
-
+// @route GET api/users/current
+// @desc Return current User
+// @access Private
+router.get('/current', passport.authenticate('jwt', {
+  session: false
+}), (req, res) => {
+  res.json({
+    msg: 'success'
+  })
+});
 
 
 module.exports = router;

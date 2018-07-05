@@ -33,11 +33,11 @@ const ProfileSchema = new Schema({
     type: String
   },
   githubusername: {
-    type: Sting
+    type: String
   },
   experience: [{
     title: {
-      type: Sting,
+      type: String,
       require: true
     },
     company: {
@@ -64,7 +64,7 @@ const ProfileSchema = new Schema({
   }],
   education: [{
     school: {
-      type: Sting,
+      type: String,
       require: true
     },
     degree: {
